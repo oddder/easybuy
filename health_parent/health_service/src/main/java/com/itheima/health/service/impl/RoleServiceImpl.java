@@ -43,7 +43,10 @@ public class RoleServiceImpl implements RoleService {
 
     //查找所有菜单
     public List<Menu> findMenu() {
-        return menuDao.findAll();
+        //只显示子菜单
+        List<Menu> all = menuDao.findAll();
+        all.removeIf(menu -> menu.getParentMenuId() == null);
+        return all;
     }
 
     //添加角色
@@ -56,6 +59,12 @@ public class RoleServiceImpl implements RoleService {
         }
         //对role表进行添加
         roleDao.add(role);
+
+        roleAddMenu(role, permissionIds, menuIds);
+
+    }
+
+    private void roleAddMenu(Role role, Integer[] permissionIds, Integer[] menuIds) {
         //添加中间表数据
         if (permissionIds.length < 1 || permissionIds == null) {
             throw new RuntimeException("请给您创建的角色添加权限");
@@ -68,10 +77,26 @@ public class RoleServiceImpl implements RoleService {
         if (menuIds.length < 1 || menuIds == null) {
             throw new RuntimeException("请给您创建的角色添加可以访问的菜单");
         }
+
+        //查询出父菜单并添加到子菜单整合
+        List<Integer> integers = Arrays.asList(menuIds);
+        List<Integer> fumenuIds = roleDao.findParentMenu(integers);
+
+
         for (Integer menuId : menuIds) {
+            //根据id查找menu 判断
+            if (menuId!=1&&menuId!=5&&menuId!=11&&menuId!=13&&menuId!=15) {
             roleDao.roleAddmenu(role.getId(), menuId);
+            }
         }
 
+        //添加父菜单
+        for (Integer menuId : fumenuIds) {
+            //根据id查找menu 判断
+            if (menuId!=null) {
+                roleDao.roleAddmenu(role.getId(), menuId);
+            }
+        }
     }
 
     //删除角色
@@ -119,20 +144,7 @@ public class RoleServiceImpl implements RoleService {
         roleDao.removePremission(role.getId());
         roleDao.removeMenu(role.getId());
 
-        //重新创建中间表联系
-        if (permissionIds.length < 1 || permissionIds == null) {
-            throw new RuntimeException("请给您编辑的角色添加权限");
-        }
-        if (menuIds.length < 1 || menuIds == null) {
-            throw new RuntimeException("请给您编辑的角色添加可以访问的菜单");
-        }
-        //直接添加就好了
-        for (Integer permissionId : permissionIds) {
-            roleDao.roleAddPermission(role.getId(), permissionId);
-        }
+        roleAddMenu(role, permissionIds, menuIds);
 
-        for (Integer menuId : menuIds) {
-            roleDao.roleAddmenu(role.getId(), menuId);
-        }
     }
 }

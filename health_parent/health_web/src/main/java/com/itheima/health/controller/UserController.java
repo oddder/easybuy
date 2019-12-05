@@ -3,11 +3,14 @@ package com.itheima.health.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.itheima.health.constant.MessageConstant;
 import com.itheima.health.entity.Result;
+import com.itheima.health.pojo.Menu;
 import com.itheima.health.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
 
 /**
  * @ClassName CheckItemController
@@ -38,5 +41,10 @@ public class UserController {
             return new Result(false, MessageConstant.GET_USERNAME_FAIL);
         }
     }
-
+    //findUserPage查找用户所拥有的菜单;
+    @RequestMapping(value = "/findUserMenu")
+    public Result findUserMenu(String username){
+        ArrayList<Menu> userMenu = userService.findUserMenu(username);
+        return new Result(true,"成功",userMenu);
+    }
 }

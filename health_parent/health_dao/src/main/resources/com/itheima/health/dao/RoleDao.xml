@@ -85,4 +85,12 @@
         <collection property="menus" column="id" select="com.itheima.health.dao.MenuDao.findMenuByRoleId"/>
     </resultMap>
 
+    <!--查找所有fu菜单-->
+    <select id="findParentMenu" resultType="int">
+        select distinct parentMenuId from t_menu where id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+        </foreach>
+    </select>
+
 </mapper>

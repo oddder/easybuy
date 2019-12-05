@@ -47,7 +47,7 @@ public class RoleController {
 
     //增加
     @RequestMapping(value = "/add")
-    public Result addCheckGourp(@RequestBody Role role, Integer[] permissionIds,Integer[] menuIds) {
+    public Result add(@RequestBody Role role, Integer[] permissionIds,Integer[] menuIds) {
         try {
             //存储role,以及中间表
             roleService.add(role, permissionIds,menuIds);

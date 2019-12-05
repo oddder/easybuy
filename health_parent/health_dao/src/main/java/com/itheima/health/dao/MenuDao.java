@@ -12,4 +12,7 @@ public interface MenuDao {
     //根据roleid查找menu
     List<Menu> findMenuByRoleId();
 
+    //根据id查找menu
+    Menu findById();
+
 }

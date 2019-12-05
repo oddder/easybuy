@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import com.itheima.health.pojo.Role;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
 import java.util.Set;
 
 public interface RoleDao {
@@ -44,4 +45,6 @@ public interface RoleDao {
     void clearPermission(Integer id);
 
     void clearMenu(Integer id);
+
+    List<Integer> findParentMenu(List<Integer> menuIds);
 }

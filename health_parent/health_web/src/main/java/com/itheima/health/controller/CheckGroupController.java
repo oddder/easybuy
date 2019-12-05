@@ -45,8 +45,7 @@ public class CheckGroupController {
     // 分页查询
     @RequestMapping(value = "/findPage")
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
-        PageResult pageResult = checkGroupService.findPage(queryPageBean.getQueryString(),queryPageBean.getCurrentPage(),queryPageBean.getPageSize());
-        return pageResult;
+        return checkGroupService.findPage(queryPageBean.getQueryString(),queryPageBean.getCurrentPage(),queryPageBean.getPageSize());
     }
 
     // 检查组的主键查询
