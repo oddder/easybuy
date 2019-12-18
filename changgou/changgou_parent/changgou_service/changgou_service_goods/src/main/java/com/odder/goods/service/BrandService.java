@@ -57,22 +57,6 @@ public interface BrandService {
     void delete(int id);
 
 
-    /**
-     * 根据名字查找
-     * @param name brand name
-     * @return com.odder.goods.pojo.Brand
-     * @date 22:30 2019/12/18
-     * @author Odder
-     **/
-    Brand findByName(int name);
 
-    /**
-     * 根据名字查找
-     * @param name brand name
-     * @return com.odder.goods.pojo.Brand
-     * @date 22:30 2019/12/18
-     * @author Odder
-     **/
-    Brand brand(int name);
 
 }
