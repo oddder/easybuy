@@ -64,6 +64,6 @@ public interface BrandService {
      * @date 22:30 2019/12/18
      * @author Odder
      **/
-    /*Brand findByName(String name);*/
+    Brand findByName(String name);
 
 }
