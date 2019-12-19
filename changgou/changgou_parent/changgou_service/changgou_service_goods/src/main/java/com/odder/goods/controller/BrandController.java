@@ -1,5 +1,6 @@
 package com.odder.goods.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.odder.goods.pojo.Brand;
 import com.odder.goods.service.BrandService;
 import entity.Result;
@@ -51,5 +52,25 @@ public class BrandController {
     public Result delete(@PathVariable int id){
         brandService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
+    }
+
+    @PostMapping(value = "search")
+    public Result<List<Brand>> findList(@RequestBody(required = false) Brand brand ){
+        List<Brand> list = brandService.findList(brand);
+        return new Result(true,StatusCode.OK,"查询成功",list);
+    }
+
+    @GetMapping(value = "/search/{page}/{size}")
+    public Result<List<Brand>> findPage(@PathVariable int page ,@PathVariable int size){
+        PageInfo<Brand> list = brandService.findPage(page,size);
+        return new Result(true,StatusCode.OK,"查询成功",list);
+    }
+
+    @PostMapping(value = "/search/{page}/{size}")
+    public Result<List<Brand>> findPageByBrand(@PathVariable int page ,
+                                               @PathVariable int size,
+                                               @RequestBody(required = false) Brand brand){
+        PageInfo<Brand> list = brandService.findPageByBrand(page,size,brand);
+        return new Result(true,StatusCode.OK,"查询成功",list);
     }
 }
