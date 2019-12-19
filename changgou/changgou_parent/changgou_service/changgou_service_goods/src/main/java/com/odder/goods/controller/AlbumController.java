@@ -29,23 +29,7 @@ public class AlbumController {
         return new Result<>(true, StatusCode.OK,"查询成功",all);
     }
 
-    @PostMapping
-    public Result add(@RequestBody Album album){
-        albumService.add(album);
-        return new Result<>(true, StatusCode.OK,"add成功");
-    }
 
-    @PostMapping("search")
-    public Result<List<Album>> findByRule(@RequestBody Album album){
-        List<Album> all = albumService.findByRule(album);
-        return new Result<>(true, StatusCode.OK,"查询成功",all);
-    }
-
-    @GetMapping("search/{page}/{size}")
-    public Result<PageInfo<Album>> findPage(@PathVariable int page ,@PathVariable int size){
-        PageInfo<Album> page1 = albumService.findPage(page, size);
-        return new Result<>(true, StatusCode.OK,"查询成功",page1);
-    }
 
     @PostMapping("search/{page}/{size}")
     public Result<PageInfo<Album>> findPageAndRule(@RequestBody Album album ,@PathVariable int page ,@PathVariable int size){
