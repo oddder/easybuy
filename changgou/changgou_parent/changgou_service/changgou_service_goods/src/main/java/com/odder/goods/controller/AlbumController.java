@@ -18,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping(value = "/album")
+@CrossOrigin
 public class AlbumController {
 
     @Autowired
@@ -64,6 +65,7 @@ public class AlbumController {
         albumService.updateById(album);
         return new Result<>(true, StatusCode.OK,"修改成功");
     }
+
 
     @DeleteMapping("/{id}")
     public Result delete(@PathVariable int id ){
