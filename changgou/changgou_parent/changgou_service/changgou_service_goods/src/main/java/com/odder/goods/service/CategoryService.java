@@ -5,13 +5,19 @@ import com.odder.goods.pojo.Category;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 17:25
- * @Version 1.0
- */
+/****
+ * @Author:sz.itheima
+ * @Description:Category业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface CategoryService {
+
+    /**
+     * find by parent Id
+     * @param parentId
+     * @return
+     */
+    List<Category> findByParentId(int parentId);
 
     /***
      * Category多条件分页查询
@@ -60,18 +66,11 @@ public interface CategoryService {
      * @param id
      * @return
      */
-    Category findById(Integer id);
+     Category findById(Integer id);
 
     /***
      * 查询所有Category
      * @return
      */
     List<Category> findAll();
-
-    /***
-     * 根据父节点ID查询
-     * @param pid:父节点ID
-     */
-    List<Category> findByParentId(Integer pid);
 }
-

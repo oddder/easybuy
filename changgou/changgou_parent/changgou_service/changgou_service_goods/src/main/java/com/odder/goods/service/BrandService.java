@@ -5,93 +5,74 @@ import com.odder.goods.pojo.Brand;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/18 21:32
- * @Version 1.0
- */
+/****
+ * @Author:sz.itheima
+ * @Description:Brand业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface BrandService {
+
     /**
-     * 查找所有品牌
-     *
+     * 根据分类来找品牌
+     * @param cid
      * @return java.util.List<com.odder.goods.pojo.Brand>
-     * @Param []
-     * @Date 21:33 2019/12/18
-     * @Author Odder
-     **/
-    List<Brand> findAll();
-
-    /**
-     * 根据id查找品牌
-     *
-     * @param id brand id
-     * @return com.odder.goods.pojo.Brand
-     * @date 22:20 2019/12/18
+     * @date 18:07 2019/12/21
      * @author Odder
      **/
-    Brand findById(int id);
+    List<Brand> selectByCategory(int cid);
 
-    /**
-     * add a brand
-     *
-     * @param brand brand
-     * @return void
-     * @date 23:20 2019/12/18
-     * @author Odder
-     **/
+    /***
+     * Brand多条件分页查询
+     * @param brand
+     * @param page
+     * @param size
+     * @return
+     */
+    PageInfo<Brand> findPage(Brand brand, int page, int size);
+
+    /***
+     * Brand分页查询
+     * @param page
+     * @param size
+     * @return
+     */
+    PageInfo<Brand> findPage(int page, int size);
+
+    /***
+     * Brand多条件搜索方法
+     * @param brand
+     * @return
+     */
+    List<Brand> findList(Brand brand);
+
+    /***
+     * 删除Brand
+     * @param id
+     */
+    void delete(Integer id);
+
+    /***
+     * 修改Brand数据
+     * @param brand
+     */
+    void update(Brand brand);
+
+    /***
+     * 新增Brand
+     * @param brand
+     */
     void add(Brand brand);
 
     /**
-     * 修改brand
-     *
-     * @param brand
-     * @return void
-     * @date 23:30 2019/12/18
-     * @author Odder
-     **/
-    void update(Brand brand);
-
-    /**
-     * delete brand
-     *
+     * 根据ID查询Brand
      * @param id
-     * @return void
-     * @date 23:36 2019/12/18
-     * @author Odder
-     **/
-    void delete(int id);
+     * @return
+     */
+     Brand findById(Integer id);
 
-
-    /**
-     * 根据查询条件查询
-     *
-     * @param brand
-     * @return void
-     * @date 14:59 2019/12/19
-     * @author Odder
-     **/
-    List<Brand> findList(Brand brand);
-
-    /**
-     * 分页查询
-     *
-     * @param page
-     * @param size
-     * @return java.util.List<com.odder.goods.pojo.Brand>
-     * @date 16:39 2019/12/19
-     * @author Odder
-     **/
-    PageInfo<Brand> findPage(int page , int size);
-
-    /**
-     * 查询条件并分页
-     * @param page
-     * @param size
-     * @param brand
-     * @return com.github.pagehelper.PageInfo<com.odder.goods.pojo.Brand>
-     * @date 17:15 2019/12/19
-     * @author Odder
-     **/
-    PageInfo<Brand> findPageByBrand(int page, int size, Brand brand);
+    /***
+     * 查询所有Brand
+     * @return
+     */
+    List<Brand> findAll();
 }

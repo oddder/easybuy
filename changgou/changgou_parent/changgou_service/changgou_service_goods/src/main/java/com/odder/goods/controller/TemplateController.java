@@ -10,66 +10,125 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 15:49
- * @Version 1.0
- */
+/****
+ * @Author:shenkunlin
+ * @Description:
+ * @Date 2019/6/14 0:18
+ *****/
+
 @RestController
-@RequestMapping("template")
+@RequestMapping("/template")
 @CrossOrigin
 public class TemplateController {
 
     @Autowired
     private TemplateService templateService;
 
-    @GetMapping
-    public Result findAll(){
-        List<Template> all = templateService.findAll();
-        return new Result(true, StatusCode.OK,"查询成功",all);
+
+    @GetMapping("/search/{cid}")
+    public Result<Template> findByCategoryId(@PathVariable int cid){
+        Template byCategoryId = templateService.findByCategoryId(cid);
+        return new Result<>(true,StatusCode.OK,"查询成功",byCategoryId);
     }
 
-    @PostMapping
-    public Result<PageInfo<Template>> add(@RequestBody Template template){
-        templateService.add(template);
-        return new Result<>(true, StatusCode.OK,"添加成功");
+    /***
+     * Template分页条件搜索实现
+     * @param template
+     * @param page
+     * @param size
+     * @return
+     */
+    @PostMapping(value = "/search/{page}/{size}" )
+    public Result<PageInfo> findPage(@RequestBody(required = false)  Template template, @PathVariable  int page, @PathVariable  int size){
+        //调用TemplateService实现分页条件查询Template
+        PageInfo<Template> pageInfo = templateService.findPage(template, page, size);
+        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
     }
 
-    @PostMapping("search")
-    public Result<PageInfo<Template>> findByRole(@RequestBody Template template){
-        List<Template> byRule = templateService.findByRule(template);
-        return new Result<>(true, StatusCode.OK,"查询成功",byRule);
+    /***
+     * Template分页搜索实现
+     * @param page:当前页
+     * @param size:每页显示多少条
+     * @return
+     */
+    @GetMapping(value = "/search/{page}/{size}" )
+    public Result<PageInfo> findPage(@PathVariable  int page, @PathVariable  int size){
+        //调用TemplateService实现分页查询Template
+        PageInfo<Template> pageInfo = templateService.findPage(page, size);
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",pageInfo);
     }
 
-    @GetMapping("search/{page}/{size}")
-    public Result findPage(@PathVariable int page , @PathVariable int size){
-        PageInfo<Template> page1 = templateService.findPage(page, size);
-        return new Result(true, StatusCode.OK,"查询成功",page1);
+    /***
+     * 多条件搜索品牌数据
+     * @param template
+     * @return
+     */
+    @PostMapping(value = "/search" )
+    public Result<List<Template>> findList(@RequestBody(required = false)  Template template){
+        //调用TemplateService实现条件查询Template
+        List<Template> list = templateService.findList(template);
+        return new Result<List<Template>>(true,StatusCode.OK,"查询成功",list);
     }
 
-    @PostMapping("search/{page}/{size}")
-    public Result findPageAndRule(@PathVariable int page , @PathVariable int size ,@RequestBody Template template){
-        PageInfo<Template> page1 = templateService.findPageAndRule(template,page, size);
-        return new Result(true, StatusCode.OK,"查询成功",page1);
+    /***
+     * 根据ID删除品牌数据
+     * @param id
+     * @return
+     */
+    @DeleteMapping(value = "/{id}" )
+    public Result delete(@PathVariable Integer id){
+        //调用TemplateService实现根据主键删除
+        templateService.delete(id);
+        return new Result(true,StatusCode.OK,"删除成功");
     }
 
-    @GetMapping("search/{id}")
-    public Result findById(@PathVariable int id){
-        Template byId = templateService.findById( id);
-        return new Result(true, StatusCode.OK,"查询成功",byId);
-    }
-
-    @PutMapping("{id}")
-    public Result findById(@PathVariable int id,@RequestBody Template template){
+    /***
+     * 修改Template数据
+     * @param template
+     * @param id
+     * @return
+     */
+    @PutMapping(value="/{id}")
+    public Result update(@RequestBody  Template template,@PathVariable Integer id){
+        //设置主键值
         template.setId(id);
-        templateService.updateById(template);
-        return new Result(true, StatusCode.OK,"修改成功");
+        //调用TemplateService实现修改Template
+        templateService.update(template);
+        return new Result(true,StatusCode.OK,"修改成功");
     }
 
-    @DeleteMapping("{id}")
-    public Result deleteById(@PathVariable int id){
-        templateService.deleteById(id);
-        return new Result(true, StatusCode.OK,"删除成功");
+    /***
+     * 新增Template数据
+     * @param template
+     * @return
+     */
+    @PostMapping
+    public Result add(@RequestBody   Template template){
+        //调用TemplateService实现添加Template
+        templateService.add(template);
+        return new Result(true,StatusCode.OK,"添加成功");
+    }
+
+    /***
+     * 根据ID查询Template数据
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result<Template> findById(@PathVariable Integer id){
+        //调用TemplateService实现根据主键查询Template
+        Template template = templateService.findById(id);
+        return new Result<Template>(true,StatusCode.OK,"查询成功",template);
+    }
+
+    /***
+     * 查询Template全部数据
+     * @return
+     */
+    @GetMapping
+    public Result<List<Template>> findAll(){
+        //调用TemplateService实现查询所有Template
+        List<Template> list = templateService.findAll();
+        return new Result<List<Template>>(true, StatusCode.OK,"查询成功",list) ;
     }
 }

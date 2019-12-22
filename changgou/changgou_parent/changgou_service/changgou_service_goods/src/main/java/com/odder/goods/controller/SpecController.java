@@ -10,19 +10,32 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 16:56
- * @Version 1.0
- */
+/****
+ * @Author:shenkunlin
+ * @Description:
+ * @Date 2019/6/14 0:18
+ *****/
 
 @RestController
-@RequestMapping("spec")
+@RequestMapping("/spec")
 @CrossOrigin
 public class SpecController {
+
     @Autowired
     private SpecService specService;
+
+    /**
+     * 根据分类找参数
+     * @param id
+     * @return entity.Result<java.util.List<com.odder.goods.pojo.Spec>>
+     * @date 21:06 2019/12/21
+     * @author Odder
+     **/
+    @GetMapping("/category/{id}")
+    public Result<List<Spec>> findByCategoryId(@PathVariable int id){
+        List<Spec> byCategoryId = specService.findByCategoryId(id);
+        return new Result<>(true,StatusCode.OK,"chenggong",byCategoryId);
+    }
 
     /***
      * Spec分页条件搜索实现
@@ -32,10 +45,10 @@ public class SpecController {
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@RequestBody(required = false) Spec spec, @PathVariable int page, @PathVariable  int size){
-        //执行搜索
+    public Result<PageInfo> findPage(@RequestBody(required = false)  Spec spec, @PathVariable  int page, @PathVariable  int size){
+        //调用SpecService实现分页条件查询Spec
         PageInfo<Spec> pageInfo = specService.findPage(spec, page, size);
-        return new Result(true, StatusCode.OK,"查询成功",pageInfo);
+        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
     }
 
     /***
@@ -46,7 +59,7 @@ public class SpecController {
      */
     @GetMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo> findPage(@PathVariable  int page, @PathVariable  int size){
-        //分页查询
+        //调用SpecService实现分页查询Spec
         PageInfo<Spec> pageInfo = specService.findPage(page, size);
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",pageInfo);
     }
@@ -58,6 +71,7 @@ public class SpecController {
      */
     @PostMapping(value = "/search" )
     public Result<List<Spec>> findList(@RequestBody(required = false)  Spec spec){
+        //调用SpecService实现条件查询Spec
         List<Spec> list = specService.findList(spec);
         return new Result<List<Spec>>(true,StatusCode.OK,"查询成功",list);
     }
@@ -69,6 +83,7 @@ public class SpecController {
      */
     @DeleteMapping(value = "/{id}" )
     public Result delete(@PathVariable Integer id){
+        //调用SpecService实现根据主键删除
         specService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
     }
@@ -83,7 +98,7 @@ public class SpecController {
     public Result update(@RequestBody  Spec spec,@PathVariable Integer id){
         //设置主键值
         spec.setId(id);
-        //修改数据
+        //调用SpecService实现修改Spec
         specService.update(spec);
         return new Result(true,StatusCode.OK,"修改成功");
     }
@@ -95,6 +110,7 @@ public class SpecController {
      */
     @PostMapping
     public Result add(@RequestBody   Spec spec){
+        //调用SpecService实现添加Spec
         specService.add(spec);
         return new Result(true,StatusCode.OK,"添加成功");
     }
@@ -106,7 +122,7 @@ public class SpecController {
      */
     @GetMapping("/{id}")
     public Result<Spec> findById(@PathVariable Integer id){
-        //根据ID查询
+        //调用SpecService实现根据主键查询Spec
         Spec spec = specService.findById(id);
         return new Result<Spec>(true,StatusCode.OK,"查询成功",spec);
     }
@@ -116,9 +132,9 @@ public class SpecController {
      * @return
      */
     @GetMapping
-    public Result<Spec> findAll(){
+    public Result<List<Spec>> findAll(){
+        //调用SpecService实现查询所有Spec
         List<Spec> list = specService.findAll();
-        return new Result<Spec>(true, StatusCode.OK,"查询成功",list) ;
+        return new Result<List<Spec>>(true, StatusCode.OK,"查询成功",list) ;
     }
-
 }

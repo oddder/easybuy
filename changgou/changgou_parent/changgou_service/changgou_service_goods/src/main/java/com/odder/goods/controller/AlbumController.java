@@ -10,69 +10,118 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 0:39
- * @Version 1.0
- */
+/****
+ * @Author:shenkunlin
+ * @Description:
+ * @Date 2019/6/14 0:18
+ *****/
+
 @RestController
-@RequestMapping(value = "/album")
+@RequestMapping("/album")
 @CrossOrigin
 public class AlbumController {
 
     @Autowired
     private AlbumService albumService;
 
+    /***
+     * Album分页条件搜索实现
+     * @param album
+     * @param page
+     * @param size
+     * @return
+     */
+    @PostMapping(value = "/search/{page}/{size}" )
+    public Result<PageInfo> findPage(@RequestBody(required = false)  Album album, @PathVariable  int page, @PathVariable  int size){
+        //调用AlbumService实现分页条件查询Album
+        PageInfo<Album> pageInfo = albumService.findPage(album, page, size);
+        return new Result(true,StatusCode.OK,"查询成功",pageInfo);
+    }
+
+    /***
+     * Album分页搜索实现
+     * @param page:当前页
+     * @param size:每页显示多少条
+     * @return
+     */
+    @GetMapping(value = "/search/{page}/{size}" )
+    public Result<PageInfo> findPage(@PathVariable  int page, @PathVariable  int size){
+        //调用AlbumService实现分页查询Album
+        PageInfo<Album> pageInfo = albumService.findPage(page, size);
+        return new Result<PageInfo>(true,StatusCode.OK,"查询成功",pageInfo);
+    }
+
+    /***
+     * 多条件搜索品牌数据
+     * @param album
+     * @return
+     */
+    @PostMapping(value = "/search" )
+    public Result<List<Album>> findList(@RequestBody(required = false)  Album album){
+        //调用AlbumService实现条件查询Album
+        List<Album> list = albumService.findList(album);
+        return new Result<List<Album>>(true,StatusCode.OK,"查询成功",list);
+    }
+
+    /***
+     * 根据ID删除品牌数据
+     * @param id
+     * @return
+     */
+    @DeleteMapping(value = "/{id}" )
+    public Result delete(@PathVariable Long id){
+        //调用AlbumService实现根据主键删除
+        albumService.delete(id);
+        return new Result(true,StatusCode.OK,"删除成功");
+    }
+
+    /***
+     * 修改Album数据
+     * @param album
+     * @param id
+     * @return
+     */
+    @PutMapping(value="/{id}")
+    public Result update(@RequestBody  Album album,@PathVariable Long id){
+        //设置主键值
+        album.setId(id);
+        //调用AlbumService实现修改Album
+        albumService.update(album);
+        return new Result(true,StatusCode.OK,"修改成功");
+    }
+
+    /***
+     * 新增Album数据
+     * @param album
+     * @return
+     */
+    @PostMapping
+    public Result add(@RequestBody   Album album){
+        //调用AlbumService实现添加Album
+        albumService.add(album);
+        return new Result(true,StatusCode.OK,"添加成功");
+    }
+
+    /***
+     * 根据ID查询Album数据
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public Result<Album> findById(@PathVariable Long id){
+        //调用AlbumService实现根据主键查询Album
+        Album album = albumService.findById(id);
+        return new Result<Album>(true,StatusCode.OK,"查询成功",album);
+    }
+
+    /***
+     * 查询Album全部数据
+     * @return
+     */
     @GetMapping
     public Result<List<Album>> findAll(){
-        List<Album> all = albumService.findAll();
-        return new Result<>(true, StatusCode.OK,"查询成功",all);
+        //调用AlbumService实现查询所有Album
+        List<Album> list = albumService.findAll();
+        return new Result<List<Album>>(true, StatusCode.OK,"查询成功",list) ;
     }
-
-    @PostMapping
-    public Result add(@RequestBody Album album){
-        albumService.add(album);
-        return new Result<>(true, StatusCode.OK,"add成功");
-    }
-
-    @PostMapping("search")
-    public Result<List<Album>> findByRule(@RequestBody Album album){
-        List<Album> all = albumService.findByRule(album);
-        return new Result<>(true, StatusCode.OK,"查询成功",all);
-    }
-
-    @GetMapping("search/{page}/{size}")
-    public Result<PageInfo<Album>> findPage(@PathVariable int page ,@PathVariable int size){
-        PageInfo<Album> page1 = albumService.findPage(page, size);
-        return new Result<>(true, StatusCode.OK,"查询成功",page1);
-    }
-
-    @PostMapping("search/{page}/{size}")
-    public Result<PageInfo<Album>> findPageAndRule(@RequestBody Album album ,@PathVariable int page ,@PathVariable int size){
-        PageInfo<Album> page1 = albumService.findPageAndRule(page,size,album);
-        return new Result<>(true, StatusCode.OK,"查询成功",page1);
-    }
-
-    @GetMapping("/{id}")
-    public Result<Album> findById(@PathVariable int id ){
-        return new Result<>(true, StatusCode.OK,"查询成功",albumService.findById(id));
-    }
-
-    @PutMapping("/{id}")
-    public Result update(@PathVariable int id ,@RequestBody Album album){
-        album.setId((long)id);
-        albumService.updateById(album);
-        return new Result<>(true, StatusCode.OK,"修改成功");
-    }
-
-
-    @DeleteMapping("/{id}")
-    public Result delete(@PathVariable int id ){
-        albumService.deleteById(id);
-        return new Result<>(true, StatusCode.OK,"删除成功");
-    }
-
 }
-
-

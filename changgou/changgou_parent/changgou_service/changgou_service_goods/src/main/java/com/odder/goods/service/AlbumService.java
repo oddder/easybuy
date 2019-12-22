@@ -2,91 +2,68 @@ package com.odder.goods.service;
 
 import com.github.pagehelper.PageInfo;
 import com.odder.goods.pojo.Album;
-import entity.PageResult;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 0:03
- * @Version 1.0
- */
+/****
+ * @Author:sz.itheima
+ * @Description:Album业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface AlbumService {
-    /**
-     * find all
-     *
-     * @param
-     * @return java.util.List<com.odder.goods.pojo.Album>
-     * @date 0:05 2019/12/20
-     * @author Odder
-     **/
-    List<Album> findAll();
 
-    /**
-     * ad d
-     *
+    /***
+     * Album多条件分页查询
      * @param album
-     * @return void
-     * @date 0:06 2019/12/20
-     * @author Odder
-     **/
-    void add(Album album);
-
-    /**
-     * find by rule
-     *
-     * @param album
-     * @return java.util.List<com.odder.goods.pojo.Album>
-     * @date 0:07 2019/12/20
-     * @author Odder
-     **/
-    List<Album> findByRule(Album album);
-
-    /**
-     * find page
-     *
      * @param page
      * @param size
-     * @return entity.PageResult<com.odder.goods.pojo.Album>
-     * @date 0:09 2019/12/20
-     * @author Odder
-     **/
+     * @return
+     */
+    PageInfo<Album> findPage(Album album, int page, int size);
+
+    /***
+     * Album分页查询
+     * @param page
+     * @param size
+     * @return
+     */
     PageInfo<Album> findPage(int page, int size);
 
-    /**
-     * find
-     * @param page
-     * @param size
+    /***
+     * Album多条件搜索方法
      * @param album
      * @return
      */
-    PageInfo<Album> findPageAndRule(int page, int size , Album album);
+    List<Album> findList(Album album);
+
+    /***
+     * 删除Album
+     * @param id
+     */
+    void delete(Long id);
+
+    /***
+     * 修改Album数据
+     * @param album
+     */
+    void update(Album album);
+
+    /***
+     * 新增Album
+     * @param album
+     */
+    void add(Album album);
 
     /**
-     * find by id
+     * 根据ID查询Album
      * @param id
-     * @return entity.PageResult<com.odder.goods.pojo.Album>
-     * @date 0:12 2019/12/20
-     * @author Odder
-     **/
-    Album findById(int id);
+     * @return
+     */
+     Album findById(Long id);
 
     /***
-     * update
-     * @param album
-     * @return void
-     * @date 0:13 2019/12/20
-     * @author Odder
-     **/
-    void updateById(Album album);
-
-    /***
-     * delete
-     * @param id
-     * @return void
-     * @date 0:13 2019/12/20
-     * @author Odder
-     **/
-    void deleteById(int id);
+     * 查询所有Album
+     * @return
+     */
+    List<Album> findAll();
 }

@@ -5,13 +5,21 @@ import com.odder.goods.pojo.Spec;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 16:42
- * @Version 1.0
- */
+/****
+ * @Author:sz.itheima
+ * @Description:Spec业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface SpecService {
+
+    /***
+     * 根据分类信息找参数模版
+     * @param cid
+     * @return java.util.List<com.odder.goods.pojo.Spec>
+     * @date 20:59 2019/12/21
+     * @author Odder
+     **/
+    List<Spec> findByCategoryId(int cid);
 
     /***
      * Spec多条件分页查询
@@ -57,11 +65,10 @@ public interface SpecService {
 
     /**
      * 根据ID查询Spec
-     *
      * @param id
      * @return
      */
-    Spec findById(Integer id);
+     Spec findById(Integer id);
 
     /***
      * 查询所有Spec
@@ -69,5 +76,3 @@ public interface SpecService {
      */
     List<Spec> findAll();
 }
-
-

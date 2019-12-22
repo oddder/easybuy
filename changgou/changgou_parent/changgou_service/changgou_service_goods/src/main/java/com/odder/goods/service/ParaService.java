@@ -5,12 +5,11 @@ import com.odder.goods.pojo.Para;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 17:00
- * @Version 1.0
- */
+/****
+ * @Author:sz.itheima
+ * @Description:Para业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface ParaService {
 
     /***
@@ -60,12 +59,20 @@ public interface ParaService {
      * @param id
      * @return
      */
-    Para findById(Integer id);
+     Para findById(Integer id);
 
     /***
      * 查询所有Para
      * @return
      */
     List<Para> findAll();
-}
 
+    /**
+     * 根据分类查找参数
+     * @param id
+     * @return java.util.List<com.odder.goods.pojo.Para>
+     * @date 21:22 2019/12/21
+     * @author Odder
+     **/
+    List<Para> findByCategory(int id);
+}

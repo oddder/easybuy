@@ -5,77 +5,75 @@ import com.odder.goods.pojo.Template;
 
 import java.util.List;
 
-/**
- * @Description
- * @Author Odder
- * @Date 2019/12/20 14:18
- * @Version 1.0
- */
+/****
+ * @Author:sz.itheima
+ * @Description:Template业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface TemplateService {
 
     /**
-     * 查询所有
-     * @param null
-     * @return list
-     * @date 14:19 2019/12/20
+     * 根据分类来找对应的模板
+     * @param categoryId
+     * @return com.odder.goods.pojo.Template
+     * @date 17:36 2019/12/21
      * @author Odder
      **/
-    List<Template> findAll();
+    Template findByCategoryId(int categoryId);
 
-    /**
-     * 添加
+    /***
+     * Template多条件分页查询
+     * @param template
+     * @param page
+     * @param size
+     * @return
+     */
+    PageInfo<Template> findPage(Template template, int page, int size);
+
+    /***
+     * Template分页查询
+     * @param page
+     * @param size
+     * @return
+     */
+    PageInfo<Template> findPage(int page, int size);
+
+    /***
+     * Template多条件搜索方法
+     * @param template
+     * @return
+     */
+    List<Template> findList(Template template);
+
+    /***
+     * 删除Template
+     * @param id
+     */
+    void delete(Integer id);
+
+    /***
+     * 修改Template数据
+     * @param template
+     */
+    void update(Template template);
+
+    /***
+     * 新增Template
      * @param template
      */
     void add(Template template);
 
     /**
-     * 条件查询
-     * @param template
-     * @return java.util.List<com.odder.goods.pojo.Template>
-     * @date 14:21 2019/12/20
-     * @author Odder
-     **/
-    List<Template> findByRule(Template template);
-
-    /**
-     *分页查询
-     * @param page
-     * @param size
-     * @return
-     */
-    PageInfo<Template> findPage(int page , int size );
-
-    /**
-     * 根据条件查询并分页
-     * @param template
-     * @param page
-     * @param size
-     * @return
-     */
-    PageInfo<Template> findPageAndRule(Template template,int page,int size);
-
-    /**
-     * 根据id查找
+     * 根据ID查询Template
+     *
      * @param id
      * @return
      */
-    Template findById(int id);
+    Template findById(Integer id);
 
     /***
-     * 根据id修改
-     * @param template
-     * @return void
-     * @date 14:26 2019/12/20
-     * @author Odder
-     **/
-    void updateById(Template template);
-
-    /**
-     * 根据id删除
-     * @param id
-     * @return void
-     * @date 14:27 2019/12/20
-     * @author Odder
-     **/
-    void deleteById(int id);
+     * 查询所有Template
+     * @return
+     */
+    List<Template> findAll();
 }
