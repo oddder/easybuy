@@ -15,6 +15,7 @@
         <module>changgou_common_db</module>
         <module>changgou_service_api/changgou_service_goods_api</module>
         <module>changgou_service/changgou_service_goods</module>
+        <module>changgou_service/changgou_service_canal</module>
     </modules>
 
     <parent>
