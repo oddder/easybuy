@@ -1,4 +1,4 @@
-package com.changgou.content.feign;
+package com.odder.goods.feign;
 import com.github.pagehelper.PageInfo;
 import com.odder.goods.pojo.Spec;
 import entity.Result;

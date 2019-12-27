@@ -16,6 +16,8 @@
         <module>changgou_service_api/changgou_service_goods_api</module>
         <module>changgou_service/changgou_service_goods</module>
         <module>changgou_service/changgou_service_canal</module>
+        <module>changgou_service_api/changgou_service_content_api</module>
+        <module>changgou_service/changgou_service_search</module>
     </modules>
 
     <parent>

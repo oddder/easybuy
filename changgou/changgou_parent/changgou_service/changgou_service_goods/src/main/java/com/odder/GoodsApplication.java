@@ -29,5 +29,4 @@ public class GoodsApplication {
         //IdWorker(工作机器id,数据中心id)
         return new IdWorker(0, 0);
     }
-
 }

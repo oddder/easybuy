@@ -3,10 +3,6 @@ package com.odder.goods.service;
 import com.github.pagehelper.PageInfo;
 import com.odder.goods.pojo.Goods;
 import com.odder.goods.pojo.Spu;
-import entity.StatusCode;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 
 import java.util.List;
 

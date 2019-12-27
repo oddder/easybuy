@@ -32,7 +32,7 @@ public class CategoryBrandController {
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@RequestBody(required = false)  CategoryBrand categoryBrand, @PathVariable  int page, @PathVariable  int size){
+    public Result<PageInfo> findPage(@RequestBody(required = false) CategoryBrand categoryBrand, @PathVariable  int page, @PathVariable  int size){
         //调用CategoryBrandService实现分页条件查询CategoryBrand
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.findPage(categoryBrand, page, size);
         return new Result(true,StatusCode.OK,"查询成功",pageInfo);

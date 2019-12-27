@@ -3,6 +3,7 @@ package com.odder.goods.controller;
 import com.github.pagehelper.PageInfo;
 import com.odder.goods.pojo.Sku;
 import com.odder.goods.service.SkuService;
+import com.sun.org.apache.regexp.internal.RE;
 import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,21 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
+    /**
+     * 根据status查询sku集合
+     * @param status
+     * @return entity.Result<java.util.List<com.odder.goods.pojo.Sku>>
+     * @date 15:59 2019/12/25
+     * @author Odder
+     **/
+    @GetMapping("/status/{status}")
+    public Result<List<Sku>> getSkuByStatus(@PathVariable int status){
+        Sku sku = new Sku();
+        sku.setStatus(status+"");
+        List<Sku> list = skuService.findList(sku);
+        return new Result<>(true,StatusCode.OK,"查询成功",list);
+    }
+
     /***
      * Sku分页条件搜索实现
      * @param sku
@@ -32,7 +48,7 @@ public class SkuController {
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@RequestBody(required = false)  Sku sku, @PathVariable  int page, @PathVariable  int size){
+    public Result<PageInfo> findPage(@RequestBody(required = false) Sku sku, @PathVariable  int page, @PathVariable  int size){
         //调用SkuService实现分页条件查询Sku
         PageInfo<Sku> pageInfo = skuService.findPage(sku, page, size);
         return new Result(true,StatusCode.OK,"查询成功",pageInfo);

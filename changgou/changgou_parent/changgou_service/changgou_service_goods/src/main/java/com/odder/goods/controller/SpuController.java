@@ -1,11 +1,9 @@
 package com.odder.goods.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.odder.goods.pojo.Goods;
-import com.odder.goods.pojo.Sku;
-import com.odder.goods.pojo.Spu;
-import com.odder.goods.service.SkuService;
 import com.odder.goods.service.SpuService;
+import com.odder.goods.pojo.Goods;
+import com.odder.goods.pojo.Spu;
 import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;

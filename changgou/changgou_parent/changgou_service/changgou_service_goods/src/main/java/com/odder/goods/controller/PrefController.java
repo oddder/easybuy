@@ -32,7 +32,7 @@ public class PrefController {
      * @return
      */
     @PostMapping(value = "/search/{page}/{size}" )
-    public Result<PageInfo> findPage(@RequestBody(required = false)  Pref pref, @PathVariable  int page, @PathVariable  int size){
+    public Result<PageInfo> findPage(@RequestBody(required = false) Pref pref, @PathVariable  int page, @PathVariable  int size){
         //调用PrefService实现分页条件查询Pref
         PageInfo<Pref> pageInfo = prefService.findPage(pref, page, size);
         return new Result(true,StatusCode.OK,"查询成功",pageInfo);

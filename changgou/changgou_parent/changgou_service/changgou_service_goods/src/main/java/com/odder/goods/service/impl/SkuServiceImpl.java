@@ -5,13 +5,11 @@ import com.github.pagehelper.PageInfo;
 import com.odder.goods.dao.SkuMapper;
 import com.odder.goods.pojo.Sku;
 import com.odder.goods.service.SkuService;
-import entity.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
-import java.util.Date;
 import java.util.List;
 
 /****

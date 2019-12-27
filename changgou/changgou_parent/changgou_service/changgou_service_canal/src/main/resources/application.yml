@@ -3,6 +3,11 @@ server:
 spring:
   application:
     name: canal
+  redis:
+    # 指向docker容器地址
+    host: 192.168.211.132
+    port: 6379
+
 eureka:
   client:
     service-url:

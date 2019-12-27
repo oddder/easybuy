@@ -6,7 +6,6 @@
         <artifactId>changgou_service_api</artifactId>
         <groupId>com.odder</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
